@@ -1,14 +1,9 @@
 # Configuration file for the Sphinx documentation builder.
 """Sphinx configuration file for Athena Protobufs documentation."""
 
-import os
 import sys
 from datetime import datetime, timezone
 from pathlib import Path
-
-# Configure SSL verification for intersphinx
-# Disable SSL verification for documentation builds
-os.environ["SSL_CERT_VERIFY"] = "0"
 
 # Add the project source directory to the Python path
 sys.path.insert(0, str(Path("../athena").resolve()))
@@ -88,7 +83,6 @@ html_theme_options = {
             "Helvetica, Arial, sans-serif"
         ),
     },
-    "persistent_theme_switcher": True,
     "light_logo": "images/logo/Resolver_Lettermark_Main.png",
     "dark_logo": "images/logo/Resolver_Lettermark_White.png",
 }
