@@ -34,7 +34,7 @@ Multiple clients can join the same deployment to share responses. Clients can
 use different deployment IDs to process images seperately.
 
 Image Pre-processing
-~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~
 
 Images should be resized to 448x448 pixels before sending to the the API.
 Image hashes should be generated for CSAM detection, multiple hashes for the
