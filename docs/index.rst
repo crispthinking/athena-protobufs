@@ -55,7 +55,7 @@ hashes match a known CSAM image.
 Data Handling and Behavior
 ---------------------------
 
-**Client Library Responsibilities**
+Client Library Responsibilities
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The client library handles image preparation before transmission:
@@ -64,7 +64,7 @@ The client library handles image preparation before transmission:
 * **Image Resizing**: Sets the image dimensions for processing
 * **Metadata Creation**: Prepares correlation ID tracking
 
-**Server-Side Processing**
+Server-Side Processing
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The Athena service processes images with strict data handling policies:
@@ -74,7 +74,7 @@ The Athena service processes images with strict data handling policies:
 * **No Storage**: Images are never stored on our servers - only used for the classification call
 * **Audit Creation**: Creates audit records for each processed image for billing purposes (no image data retained)
 
-**Data Retention Policies**
+Data Retention Policies
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 * **Response Availability**: Classification responses remain available on their deployment ID for 1 hour
