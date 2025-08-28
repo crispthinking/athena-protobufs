@@ -1,7 +1,9 @@
 API Reference
 =============
 
-This section provides detailed documentation for all Protocol Buffer messages, services, and enums defined in the Athena API, including client library behavior and data handling policies.
+This section provides detailed documentation for all Protocol Buffer messages,
+services, and enums defined in the Athena API, including client library behavior
+and data handling policies.
 
 Services
 --------
@@ -26,38 +28,37 @@ Classify
 
 **RPC Type**: Bidirectional Streaming
 
-**Description**: Processes images for classification within deployment-based sessions. Multiple clients can join the same deployment to share classification responses.
+**Description**: Processes images for classification within deployment-based
+sessions. Multiple clients can join the same deployment to share classification
+responses.
 
 **Request**: Stream of ``ClassifyRequest`` messages
 **Response**: Stream of ``ClassifyResponse`` messages
 
 **Features**:
-- Real-time bidirectional streaming
-- Session-based deployment grouping
-- Multi-client collaboration support
-- Correlation-based request/response matching
+
+* Bidirectional streaming
+* Deployment ID grouping
+* Multi-client collaboration support
+* Correlation ID based request/response matching
 
 **Usage Pattern**:
-1. Establish stream connection with deployment ID
-2. Send multiple ClassifyRequest messages
-3. Receive ClassifyResponse messages for the deployment
-4. Use correlation IDs to match requests with responses
+
+#. Establish stream connection with deployment ID
+#. Send ClassifyRequest messages
+#. Receive ClassifyResponse messages for the deployment ID
+#. Use correlation IDs to match requests with responses
 
 ListDeployments
 """""""""""""""
 
 **RPC Type**: Unary
 
-**Description**: Retrieves information about all currently active deployments, including backlog statistics.
+**Description**: Retrieves information about all currently active deployments,
+including request backlog statistics.
 
 **Request**: ``google.protobuf.Empty``
 **Response**: ``ListDeploymentsResponse``
-
-**Use Cases**:
-- Monitoring active classification sessions
-- Debugging deployment connectivity
-- Load balancing decisions
-- Performance analysis
 
 Messages
 --------
@@ -84,13 +85,7 @@ Container message for batch image classification requests within a deployment.
 
 **Constraints**:
 - deployment_id must be non-empty
-- At least one input must be provided
 - All correlation_ids within inputs must be unique within the deployment
-
-**Data Handling**:
-- Images are processed ephemerally and discarded immediately after classification
-- Only image data, hash metadata, and correlation metadata is received by the API
-- Responses are available on the deployment for 1 hour, then automatically purged
 
 ClassificationInput
 ^^^^^^^^^^^^^^^^^^^
@@ -110,33 +105,17 @@ Individual image data and metadata for classification.
 
 **Fields**:
 
-* ``affiliate`` (string): Source system or organization identifier. Used for access control and analytics.
-* ``correlation_id`` (string): Unique identifier for matching this input with its response. Must be unique within the deployment scope.
+* ``affiliate`` (string): Source system or organization identifier. Used for access control.
+* ``correlation_id`` (non-empty string): Unique identifier for matching this input with its response. Must be unique within the deployment scope.
 * ``encoding`` (RequestEncoding): Compression format of the image data (uncompressed, Brotli, etc.).
 * ``data`` (bytes): Raw image data in the specified encoding format.
-* ``format`` (ImageFormat): Image file format (JPEG, PNG, etc.) for proper parsing.
-* ``hashes`` (repeated ImageHash): Optional cryptographic hashes of the image data for integrity verification.
-
-**Client Library Processing**:
-- Client library performs image hashing before transmission
-- Client library handles image resizing for optimal processing
-- Hash metadata is generated automatically by the client library
-
-**Validation Rules**:
-- affiliate must be permitted for the current client
-- correlation_id must be non-empty and unique within deployment
-- data must not be empty
-- format must be supported by the service
-
-**Server-Side Processing**:
-- Images are processed in memory and immediately discarded after classification
-- Crisp creates audit records for billing purposes (no image data retained)
-- No image storage - images only used for the classification call
+* ``format`` (ImageFormat): Image file format (JPEG, PNG, etc.).
+* ``hashes`` (repeated ImageHash): Optional hashes of the image data for integrity verification.
 
 ImageHash
 ^^^^^^^^^
 
-Cryptographic hash information for image integrity verification.
+Hash information for image CSAM detection.
 
 .. code-block:: protobuf
 
@@ -148,7 +127,7 @@ Cryptographic hash information for image integrity verification.
 **Fields**:
 
 * ``value`` (string): Hexadecimal representation of the hash value.
-* ``type`` (HashType): Algorithm used to generate the hash (MD5, SHA1, etc.).
+* ``type`` (HashType): Algorithm used to generate the hash.
 
 Response Messages
 ~~~~~~~~~~~~~~~~~
@@ -183,11 +162,7 @@ Information about a single active deployment.
 **Fields**:
 
 * ``deployment_id`` (string): Unique identifier for the deployment.
-* ``backlog`` (int32): Number of pending classification responses in the deployment queue.
-
-**Deployment Lifecycle**:
-- Deployments are automatically removed after 24 hours of inactivity
-- Active deployments continue as long as clients are connected and processing
+* ``backlog`` (int32): Number of pending classification requests in the deployment queue.
 
 ClassifyResponse
 ^^^^^^^^^^^^^^^^
@@ -206,16 +181,6 @@ Response message containing classification results for a batch of images.
 * ``global_error`` (ClassificationError): Error affecting the entire request batch. If present, outputs will be empty.
 * ``outputs`` (repeated ClassificationOutput): Individual classification results, one per input image.
 
-**Behavior**:
-- If global_error is set, the entire request failed and outputs will be empty
-- If global_error is not set, outputs contains results for each input
-- Individual images may still have errors in their respective ClassificationOutput
-
-**Response Availability**:
-- Responses are available on the deployment for 1 hour after generation
-- After 1 hour, responses are automatically purged and no longer accessible
-- All clients in the same deployment receive the same responses
-
 ClassificationOutput
 ^^^^^^^^^^^^^^^^^^^^
 
@@ -232,13 +197,8 @@ Classification result for a single image.
 **Fields**:
 
 * ``correlation_id`` (string): Matches the correlation_id from the corresponding ClassificationInput.
-* ``classifications`` (repeated Classification): All detected classifications for this image.
+* ``classifications`` (repeated Classification): All classifications for this image.
 * ``error`` (ClassificationError): Error information if this specific image failed to process.
-
-**Result Interpretation**:
-- If error is set, classification failed for this image
-- If error is not set, classifications contains the detection results
-- Empty classifications with no error indicates no detections above threshold
 
 Classification
 ^^^^^^^^^^^^^^
@@ -256,11 +216,6 @@ Individual classification result with label and confidence.
 
 * ``label`` (string): Human-readable classification label (e.g., "CatA", "CatB", "Indicitive").
 * ``weight`` (float): Confidence score between 0.0 and 1.0, where higher values indicate greater certainty.
-
-**Confidence Interpretation**:
-- 0.0: No confidence / definitely not this classification
-- 0.5: Uncertain / borderline case
-- 1.0: Maximum confidence / definitely this classification
 
 Error Messages
 ~~~~~~~~~~~~~~
@@ -283,11 +238,6 @@ Detailed error information for failed classification attempts.
 * ``code`` (ErrorCode): Structured error code for programmatic handling.
 * ``message`` (string): Human-readable error description.
 * ``details`` (string): Additional context or technical details about the error.
-
-**Error Handling**:
-- Use code for programmatic error handling and retry logic
-- Display message to users for error reporting
-- Include details in logs for debugging purposes
 
 Enumerations
 ------------
@@ -314,10 +264,11 @@ Enumeration of possible classification error types.
 * ``ERROR_CODE_AFFILIATE_NOT_PERMITTED`` (4): Client lacks permission to process images for the specified affiliate.
 
 **Retry Recommendations**:
-- ``UNSPECIFIED``: May be retryable depending on underlying cause
-- ``IMAGE_TOO_LARGE``: Not retryable, reduce image size
-- ``MODEL_ERROR``: Possibly retryable after delay
-- ``AFFILIATE_NOT_PERMITTED``: Not retryable, check client permissions
+
+* ``UNSPECIFIED``: May be retryable depending on underlying cause
+* ``IMAGE_TOO_LARGE``: Not retryable, make image size 448x448 pixels.
+* ``MODEL_ERROR``: Possibly retryable after delay
+* ``AFFILIATE_NOT_PERMITTED``: Not retryable, check client permissions
 
 RequestEncoding
 ~~~~~~~~~~~~~~~
@@ -337,11 +288,6 @@ Enumeration of supported data encoding formats.
 * ``REQUEST_ENCODING_UNSPECIFIED`` (0): Default encoding, treated as uncompressed.
 * ``REQUEST_ENCODING_UNCOMPRESSED`` (1): Raw, uncompressed image data.
 * ``REQUEST_ENCODING_BROTLI`` (2): Brotli-compressed data for bandwidth optimization.
-
-**Usage Guidelines**:
-- Use ``UNCOMPRESSED`` for local networks or when CPU is limited
-- Use ``BROTLI`` for bandwidth-constrained environments
-- ``UNSPECIFIED`` defaults to uncompressed behavior
 
 ImageFormat
 ~~~~~~~~~~~
@@ -372,29 +318,14 @@ Enumeration of supported image file formats.
      IMAGE_FORMAT_RAW_UINT8 = 18;
    }
 
-**Common Formats**:
+**Raw Formats**:
 
-* ``IMAGE_FORMAT_JPEG`` (2): JPEG format including .jpeg, .jpg, .jpe extensions
-* ``IMAGE_FORMAT_PNG`` (5): PNG format with transparency support
-* ``IMAGE_FORMAT_WEBP`` (6): Modern WebP format with compression
-* ``IMAGE_FORMAT_GIF`` (1): GIF format including animations
-* ``IMAGE_FORMAT_TIFF`` (15): TIFF format including .tiff, .tif extensions
-
-**Professional Formats**:
-
-* ``IMAGE_FORMAT_HDR`` (16): High Dynamic Range images
 * ``IMAGE_FORMAT_RAW_UINT8`` (18): Raw RGB data in C-order array format
-
-**Scientific/Legacy Formats**:
-
-* ``IMAGE_FORMAT_PBM/PGM/PPM`` (7-9): Portable bitmap formats
-* ``IMAGE_FORMAT_BMP/DIB`` (3-4): Windows bitmap formats
-* ``IMAGE_FORMAT_SR/RAS/PIC`` (13-14, 17): Sun Raster and other legacy formats
 
 HashType
 ~~~~~~~~
 
-Enumeration of supported cryptographic hash algorithms.
+Enumeration of supported hash algorithms.
 
 .. code-block:: protobuf
 
@@ -403,28 +334,3 @@ Enumeration of supported cryptographic hash algorithms.
      HASH_TYPE_MD5 = 1;
      HASH_TYPE_SHA1 = 2;
    }
-
-**Values**:
-
-* ``HASH_TYPE_UNKNOWN`` (0): Unspecified or unknown hash algorithm.
-* ``HASH_TYPE_MD5`` (1): MD5 hash algorithm (128-bit).
-* ``HASH_TYPE_SHA1`` (2): SHA-1 hash algorithm (160-bit).
-
-**Security Considerations**:
-- MD5 and SHA-1 are provided for compatibility but are cryptographically weak
-- Use for data integrity verification rather than security purposes
-- Consider these hashes as checksums rather than secure hashes
-
-Language-Specific Options
--------------------------
-
-The protobuf schema includes language-specific options for code generation:
-
-**C#**: ``Resolver.Athena.Grpc`` namespace
-**Java**: ``com.resolver.athena.grpc`` package, ``AthenaProto`` outer class
-**Objective-C**: ``RAT`` class prefix
-**PHP**: ``Resolver\Athena\Grpc`` namespace
-**Ruby**: ``Resolver::Athena::Grpc`` package
-**Swift**: ``RAT`` prefix
-
-These options ensure consistent naming conventions across different programming languages when generating client code from the protobuf definitions.
