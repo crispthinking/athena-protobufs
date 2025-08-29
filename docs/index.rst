@@ -106,10 +106,10 @@ The Athena service processes images with strict data handling policies:
 Data Retention Policies
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-* **Response Availability**: Classification responses remain available on their deployment ID for 1 hour
-* **Response Expiry**: After 1 hour, responses are automatically purged and no longer accessible
+* **Response Availability**: Classification responses remain available on their deployment for up to 1 hour, or until sent to a client. Whichever is sooner.
+* **Response Expiry**: After 1 hour, responses are not retrieved by a client are automatically purged and no longer accessible
 * **Deployment Lifecycle**: Deployments are automatically removed after 24 hours of inactivity
-* **Privacy Protection**: No source image data is retained beyond the classification process
+* **Privacy Protection**: No source image data is retained beyond the classification process. Source image data is stored ephemerally and not persisted once classification is complete.
 
 Key Features
 ------------
@@ -124,7 +124,7 @@ optimization.
 Correlation Tracking
 ~~~~~~~~~~~~~~~~~~~~
 
-Each image in a request includes a correlation ID that allows clients to match
+Each image in a request includes a client provided correlation ID that allows clients to match
 responses with their original requests.
 
 Getting Started
