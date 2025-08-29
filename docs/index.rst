@@ -11,12 +11,36 @@ Sexual Abuse Material) detection capabilities through gRPC services.
 
    api_reference
 
-Overview
---------
+Service Overview
+----------------
 
-Athena is a gRPC-based image classification service designed for CSAM detection.
-The service provides high throughput image classification through bidirectional
-streaming.
+Athena is an enterprise-grade CSAM detection platform, for both known and unknown
+CSAM images, that delivers scalable, secure image classification capabilities
+through a modern gRPC streaming API.
+
+**Core Architecture**
+
+Athena operates as a bi-directional streaming gRPC service, enabling clients to
+submit image classification requests and receive results. This streaming
+architecture ensures optimal performance and scalability, allowing for
+continuous processing of large image volumes while maintaining low latency
+response times.
+
+**Security & Access Control**
+
+Athena implements comprehensive authentication and authorization controls to
+ensure secure operations:
+
+- **Client Authentication**: All clients must be properly authenticated before accessing the service
+- **Affiliate Authorization**: The system validates that each client is authorized to submit requests for specific affiliates
+
+**Deployment Isolation**
+
+Each client operates within isolated deployment ids, ensuring independence and security:
+
+- **Dedicated Processing**: Each client submit requests to their own dedicated deployment ids
+- **Operational Independence**: Each client's processing pipeline operates independently, preventing cross-contamination
+- **Resource Isolation**: Deployment-level separation ensures consistent performance and security boundaries
 
 Quick Start
 -----------
@@ -35,11 +59,11 @@ use different deployment IDs to process images seperately.
 
 Image Pre-processing
 ~~~~~~~~~~~~~~~~~~~~
+Images must be resized to 448x448 pixels before sending to the the API.
 
-Images should be resized to 448x448 pixels before sending to the the API.
-Image hashes should be generated for CSAM detection, multiple hashes for the
-same image can be added to the request (SHA1, MD5) if e.g. the image was saved
-with a different extension.
+Image hashes should be generated for known CSAM detection, multiple hashes for
+the same image can be added to the request (SHA1, MD5) if e.g. the image was
+saved with a different extension.
 
 For example, if an image was saved as a JPEG and a PNG, both hashes could be
 included in the request.
@@ -51,6 +75,11 @@ For example Image1 hashes might be:
 
 These can be used in a single request, the response will tell you if any of the
 hashes match a known CSAM image.
+
+Requests must have at least one of the following, with both preferred:
+
+* Image hashes (SHA1, MD5) - for known CSAM detection
+* Image data - for unknown CSAM detection
 
 Data Handling and Behavior
 ---------------------------

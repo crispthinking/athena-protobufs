@@ -105,17 +105,20 @@ Individual image data and metadata for classification.
 
 **Fields**:
 
-* ``affiliate`` (string): Source system or organization identifier. Used for access control.
-* ``correlation_id`` (non-empty string): Unique identifier for matching this input with its response. Must be unique within the deployment scope.
-* ``encoding`` (RequestEncoding): Compression format of the image data (uncompressed, Brotli, etc.).
+* ``affiliate`` required (string): Source system or organization identifier. Used for access control.
+* ``correlation_id`` required (non-empty string): Unique identifier for matching this input with its response. Must be unique within the deployment scope.
+* ``encoding`` (RequestEncoding): Default RequestEncoding.Uncompressed -  Compression format of the image data (uncompressed, Brotli, etc.).
 * ``data`` (bytes): Raw image data in the specified encoding format.
-* ``format`` (ImageFormat): Image file format (JPEG, PNG, etc.).
-* ``hashes`` (repeated ImageHash): Optional hashes of the image data for integrity verification.
+* ``format`` required if ``data`` is not empty (ImageFormat): Image file format (JPEG, PNG, etc.).
+* ``hashes`` optional (repeated ImageHash): Hashes of the image data used for checking known CSAM.
+
+Requests must have at least one ``data`` or ``hashes`` to see classifications in
+the response.
 
 ImageHash
 ^^^^^^^^^
 
-Hash information for image CSAM detection.
+Hash information for image known CSAM detection.
 
 .. code-block:: protobuf
 
