@@ -100,7 +100,7 @@ message ClassificationOutput {
 // Represents one detected category with its confidence score.
 message Classification {
   // Human-readable label describing what was classified
-  // Examples: "CatA", "CatB", "Indicitive", "Distraction", etc.
+  // Examples: "CatA", "CatB", "Indicative", "Distraction", etc.
   string label = 1;
 
   // Confidence score between 0.0 and 1.0 indicating certainty
