@@ -18,6 +18,7 @@ The main service interface for image classification and deployment management.
    service ClassifierService {
      rpc Classify(stream ClassifyRequest) returns (stream ClassifyResponse);
      rpc ListDeployments(google.protobuf.Empty) returns (ListDeploymentsResponse);
+     rpc ClassifyOne(ClassificationInput) returns (ClassificationOutput);
    }
 
 Methods
@@ -59,6 +60,34 @@ including request backlog statistics.
 
 **Request**: ``google.protobuf.Empty``
 **Response**: ``ListDeploymentsResponse``
+
+ClassifyOne
+"""""""""""
+
+**RPC Type**: Unary
+
+**Description**: Classifies a single image synchronously without deployment 
+context. Returns classification results immediately in a single request-response 
+cycle. Unlike the streaming Classify method, this operates independently of 
+deployments and does not require session management or deployment coordination.
+
+**Request**: ``ClassificationInput``
+**Response**: ``ClassificationOutput``
+
+**Use Cases**:
+
+* Low-throughput, low-latency classification scenarios
+* Simple one-off image classifications  
+* Applications where immediate synchronous responses are preferred over streaming
+* Testing and debugging individual image classifications
+
+**Features**:
+
+* Synchronous request-response pattern
+* No deployment coordination required
+* Independent operation from streaming sessions
+* Direct correlation between input and output
+* Immediate error reporting
 
 Messages
 --------
