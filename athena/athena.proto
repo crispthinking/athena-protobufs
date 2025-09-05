@@ -3,7 +3,7 @@ syntax = "proto3";
 package athena;
 
 import "google/protobuf/empty.proto";
-import "models.proto";
+import "athena/models.proto";
 
 option csharp_namespace = "Resolver.Athena.Grpc";
 option java_outer_classname = "AthenaServiceProto";
