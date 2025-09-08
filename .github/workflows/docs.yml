@@ -39,7 +39,7 @@ jobs:
           uv version "$TAG_NAME"
 
       - name: Install dependencies
-        run: uv sync --locked --all-extras
+        run: uv sync --locked --all-groups
 
       - name: Build documentation
         run: |
