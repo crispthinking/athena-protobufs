@@ -40,5 +40,5 @@ service ClassifierService {
   //
   // The response will contain either classification results or error information
   // No deployment_id coordination is required or supported
-  rpc ClassifyOne(ClassificationInput) returns (ClassificationOutput);
+  rpc ClassifySingle(ClassificationInput) returns (ClassificationOutput);
 }

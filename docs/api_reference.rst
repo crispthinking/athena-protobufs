@@ -18,7 +18,7 @@ The main service interface for image classification and deployment management.
    service ClassifierService {
      rpc Classify(stream ClassifyRequest) returns (stream ClassifyResponse);
      rpc ListDeployments(google.protobuf.Empty) returns (ListDeploymentsResponse);
-     rpc ClassifyOne(ClassificationInput) returns (ClassificationOutput);
+     rpc ClassifySingle(ClassificationInput) returns (ClassificationOutput);
    }
 
 Methods
@@ -61,8 +61,8 @@ including request backlog statistics.
 **Request**: ``google.protobuf.Empty``
 **Response**: ``ListDeploymentsResponse``
 
-ClassifyOne
-"""""""""""
+ClassifySingle
+"""""""""""""""
 
 **RPC Type**: Unary
 
