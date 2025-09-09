@@ -26,4 +26,19 @@ service ClassifierService {
   // Returns the active deployment_id values that can be used in Classify requests
   // Useful for monitoring and debugging active connections
   rpc ListDeployments(google.protobuf.Empty) returns (ListDeploymentsResponse);
+
+  // Classifies a single image synchronously without deployment context
+  // Returns classification results immediately in a single request-response cycle
+  // Unlike the streaming Classify method, this operates independently of deployments
+  // and does not require session management or deployment coordination
+  //
+  // Use this for:
+  // - Low-throughput, low-latency classification scenarios
+  // - Simple one-off image classifications
+  // - Applications where immediate synchronous responses are preferred over streaming
+  // - Testing and debugging individual image classifications
+  //
+  // The response will contain either classification results or error information
+  // No deployment_id coordination is required or supported
+  rpc ClassifySingle(ClassificationInput) returns (ClassificationOutput);
 }
