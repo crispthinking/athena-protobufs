@@ -38,7 +38,6 @@ jobs:
           VERSION=${TAG_NAME#v}
           echo "Setting version to $VERSION"
           echo "version=$VERSION" >> $GITHUB_ENV
-          uv version "$VERSION"
 
       - name: Install dependencies
         run: uv sync --locked --all-groups
