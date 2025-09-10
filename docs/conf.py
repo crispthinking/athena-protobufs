@@ -1,6 +1,7 @@
 # Configuration file for the Sphinx documentation builder.
 """Sphinx configuration file for Athena Protobufs documentation."""
 
+import os
 import sys
 from datetime import datetime, timezone
 from pathlib import Path
@@ -11,8 +12,8 @@ sys.path.insert(0, str(Path("../athena").resolve()))
 # Project information
 project = "Athena Protobufs"
 copyright = f"{datetime.now(timezone.utc).year}, Crisp"
-author = "Crisp"
-release = "1.0.0"
+author = "Crisp Thinking Group Ltd."
+release = os.getenv("VERSION", "0.0.0")
 
 # Extensions
 extensions = [
