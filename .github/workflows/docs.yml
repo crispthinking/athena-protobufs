@@ -37,6 +37,7 @@ jobs:
           TAG_NAME=${GITHUB_REF#refs/tags/}
           VERSION=${TAG_NAME#v}
           echo "Setting version to $VERSION"
+          echo "version=$VERSION" >> $GITHUB_ENV
           uv version "$VERSION"
 
       - name: Install dependencies
@@ -45,8 +46,7 @@ jobs:
       - name: Build documentation
         run: |
           cd docs
-          uv run make clean
-          uv run make html
+          uv run make clean html
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
