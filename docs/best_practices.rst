@@ -1,6 +1,5 @@
-
-Athena Classifier API Performance Best Practices
-===============================================
+Classifier API Performance Best Practices
+=========================================
 
 Overview
 --------
@@ -61,8 +60,8 @@ Performance Best Practices
 6. **Resource Management**
 
    - Streaming requests consume server resources for the duration of the stream. Close streams promptly when done.
-   - Avoid opening multiple concurrent streams from the same client unless necessary. Fewer clients will likely be able to
-   to better batch requests.
+   - Avoid opening multiple concurrent streams from the same client unless necessary. Fewer clients will likely be able
+     to better batch requests.
 
 7. **Deployment ID Consistency**
 
@@ -74,8 +73,8 @@ Performance Best Practices
 
 8. **Use Appropriate Encoding and Formats**
 
-    - Prefer the `IMAGE_FORMAT_RAW_UINT8` to reduce payload size.
-    - Use the `RequestEncoding` field to specify the encoding of image data. We suggest Brotli for optimal compression.
+   - Prefer the ``IMAGE_FORMAT_RAW_UINT8`` to reduce payload size.
+   - Use the ``RequestEncoding`` field to specify the encoding of image data. We suggest Brotli for optimal compression.
 
 Summary Table
 -------------
@@ -99,5 +98,5 @@ Summary Table
 References
 ----------
 
-* API Definitions: :file:`../../athena/athena.proto`
-* API Reference: :file:`api_reference.rst`
+* API Reference: :doc:`api_reference`
+* Proto Definitions: :doc:`proto/index`
