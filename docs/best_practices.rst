@@ -73,7 +73,7 @@ Performance Best Practices
 
 8. **Use Appropriate Encoding and Formats**
 
-   - Prefer the ``IMAGE_FORMAT_RAW_UINT8`` to reduce payload size.
+   - Prefer the ``IMAGE_FORMAT_RAW_UINT8`` format to reduce payload size.
    - Use the ``RequestEncoding`` field to specify the encoding of image data. We suggest Brotli for optimal compression.
 
 Summary Table
