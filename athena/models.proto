@@ -94,6 +94,10 @@ message ClassificationOutput {
   // Error information if this specific image classification failed
   // If present, indicates that this particular image could not be processed
   ClassificationError error = 3;
+
+  // Binary classification results for this image, e.g. exact hash match
+  // results where a floating point confidence is not applicable.
+  repeated BinaryClassification binary_classifications = 4;
 }
 
 // A single classification result for an image.
@@ -103,16 +107,18 @@ message Classification {
   // Examples: "CatA", "CatB", "Indicative", "Distraction", etc.
   string label = 1;
 
-  oneof score {
-    // Confidence score between 0.0 and 1.0 indicating certainty
-    // Higher values indicate greater confidence in the classification
-    float weight = 2;
+  // Confidence score between 0.0 and 1.0 indicating certainty
+  // Higher values indicate greater confidence in the classification
+  optional float weight = 2;
+}
 
-    // Binary classification result (true/false)
-    // Used for classifications that are strictly binary in nature, such as
-    // exact match hash detection.
-    bool binary = 3;
-  }
+message BinaryClassification {
+  // Human-readable label describing the binary classification
+  // Examples: "ExactMd5Match", "ExactSha1Match", etc.
+  string label = 1;
+
+  // Boolean value indicating presence (true) or absence (false) of the condition
+  optional bool value = 2;
 }
 
 // Error information for failed classification attempts.
