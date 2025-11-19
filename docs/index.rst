@@ -10,6 +10,7 @@ Sexual Abuse Material) detection capabilities through gRPC services.
    :caption: Contents:
 
    api_reference
+   classification_responses
    best_practices
    proto/index
 
