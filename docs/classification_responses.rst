@@ -9,7 +9,7 @@ The Athena Classifier Service returns classification results as arrays of labels
 Classification Response Structure
 ---------------------------------
 
-Each classification result contains:
+Each classification otuput contains a list of classifications with the following fields:
 
 - **Label**: A string identifier describing the classification category
 - **Weight**: A numerical confidence score (typically between 0.0 and higher values)
@@ -48,7 +48,7 @@ Labels are prefixed to group them into logical sections:
 The classifier produces two special labels alongside individual category labels:
 
 - **Entropy**: Represents the uncertainty or randomness in the classification
-- **PCSAM**: Represents the overall probability that the input represents any form of CSAM content without regard to specific categories. This is roughly the sum of the UnknownCSAM category weights.
+- **PCSAM**: Represents the overall probability that the input represents any form of CSAM content without regard to specific categories. This is the sum of the raw UnknownCSAM category weights.
 
 **Known CSAM Detection**
 
@@ -110,7 +110,7 @@ Understanding Weight Values
 
 - **Individual Category Weights**: Typically range from 0.0 to 1.0 and collectively sum to approximately 1.0
 - **Entropy Weight**: Can exceed 1.0 and represents classification uncertainty
-- **PCSAM Weight**: Should not exceed 1.0. Indicates overall likelihood of CSAM content regardless of specific categories.
+- **PCSAM Weight**: Typically in the range of 0.0 to 1.0. Indicates overall likelihood of CSAM content regardless of specific categories. This may not be the exact sum of the UnknownCSAM category weights due to normalization and scaling factors applied during classification, and may exceed 1.0 in some cases.
 
 **Weight Significance**:
 
@@ -144,6 +144,8 @@ When processing classification responses:
 5. **Process Known CSAM Results**: Check KnownCSAM labels for hash-based matches, which provide definitive CSAM identification
 
 6. **Handle Elided Labels**: Any or all of the labels may be elided from the response. The meaning and interpretation of the missing labels should be considered in your application logic.
+
+7. **Prefer PCSAM Weight for Simple Binary Decisions**: When assessing the likelihood of CSAM content, prioritize the PCSAM weight over the sum of individual UnknownCSAM category weights, as it provides a more accurate overall probability, however less granularity.
 
 Important Notes
 --------------
