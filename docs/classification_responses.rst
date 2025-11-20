@@ -121,8 +121,11 @@ Understanding Weight Values
 Understanding Missing or Elided Labels
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The labels available in a response may vary based on the exact classification performed. KnownCSAM labels will only be present if hash data was provided in the request. Similarly, UnknownCSAM labels may be elided if no image data was provided. In addition the UnknownCSAM labels may be elided if a KnownCSAM match is found, as the image is already identified as known CSAM.
+The labels available in a response may vary based on the exact classification performed:
 
+- **KnownCSAM labels** will only be present if hash data was provided in the request.
+- **UnknownCSAM labels** may be elided if no image data was provided.
+- **UnknownCSAM labels** may also be elided if a KnownCSAM match is found, since the image is already identified as known CSAM.
 In the case of a model or classification error that prevents classification, all labels may be elided and only an error message returned, or the labels from the stage that was successfully completed returned.
 
 Response Processing Guidelines
