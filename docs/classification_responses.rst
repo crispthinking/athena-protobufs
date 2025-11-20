@@ -9,7 +9,7 @@ The Athena Classifier Service returns classification results as arrays of labels
 Classification Response Structure
 ---------------------------------
 
-Each classification otuput contains a list of classifications with the following fields:
+Each classification output contains a list of classifications with the following fields:
 
 - **Label**: A string identifier describing the classification category
 - **Weight**: A numerical confidence score (typically between 0.0 and higher values)
@@ -126,7 +126,7 @@ The labels available in a response may vary based on the exact classification pe
 - **KnownCSAM labels** will only be present if hash data was provided in the request.
 - **UnknownCSAM labels** may be elided if no image data was provided.
 - **UnknownCSAM labels** may also be elided if a KnownCSAM match is found, since the image is already identified as known CSAM.
-In the case of a model or classification error that prevents classification, all labels may be elided and only an error message returned, or the labels from the stage that was successfully completed returned.
+In the case of a model or classification error that prevents classification, all labels may be elided and only an error message returned. Alternatively, only the labels from the stage that was successfully completed may be returned.
 
 Response Processing Guidelines
 -----------------------------
