@@ -66,9 +66,9 @@ ClassifySingle
 
 **RPC Type**: Unary
 
-**Description**: Classifies a single image synchronously without deployment 
-context. Returns classification results immediately in a single request-response 
-cycle. Unlike the streaming Classify method, this operates independently of 
+**Description**: Classifies a single image synchronously without deployment
+context. Returns classification results immediately in a single request-response
+cycle. Unlike the streaming Classify method, this operates independently of
 deployments and does not require session management or deployment coordination.
 
 **Request**: ``ClassificationInput``
@@ -77,7 +77,7 @@ deployments and does not require session management or deployment coordination.
 **Use Cases**:
 
 * Low-throughput, low-latency classification scenarios
-* Simple one-off image classifications  
+* Simple one-off image classifications
 * Applications where immediate synchronous responses are preferred over streaming
 * Testing and debugging individual image classifications
 
