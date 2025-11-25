@@ -73,7 +73,7 @@ Performance Best Practices
 
 8. **Use Appropriate Encoding and Formats**
 
-   - Prefer the ``IMAGE_FORMAT_RAW_UINT8_BGR`` format to reduce payload size and avoid channel-order issues.
+   - Use the ``IMAGE_FORMAT_RAW_UINT8_BGR`` format exclusively; the old ``IMAGE_FORMAT_RAW_UINT8`` (RGB) value is reserved and will be rejected by newer servers.
    - Use the ``RequestEncoding`` field to specify the encoding of image data. We suggest Brotli for optimal compression.
 
 Summary Table

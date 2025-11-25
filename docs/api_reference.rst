@@ -329,6 +329,8 @@ Enumeration of supported image file formats.
 .. code-block:: protobuf
 
    enum ImageFormat {
+     reserved 18; // previously IMAGE_FORMAT_RAW_UINT8 (RGB, legacy)
+
      IMAGE_FORMAT_UNSPECIFIED = 0;
      IMAGE_FORMAT_GIF = 1;
      IMAGE_FORMAT_JPEG = 2;
@@ -348,13 +350,13 @@ Enumeration of supported image file formats.
      IMAGE_FORMAT_HDR = 16;
      IMAGE_FORMAT_PIC = 17;
      IMAGE_FORMAT_RAW_UINT8 = 18;
-    IMAGE_FORMAT_RAW_UINT8_BGR = 19;
+     IMAGE_FORMAT_RAW_UINT8_BGR = 19;
    }
 
 **Raw Formats**:
 
-  * ``IMAGE_FORMAT_RAW_UINT8`` (18): Raw RGB data in C-order array format (legacy)
-  * ``IMAGE_FORMAT_RAW_UINT8_BGR`` (19): Raw BGR data in C-order array format (preferred canonical format)
+  * ``IMAGE_FORMAT_RAW_UINT8`` (18): **Reserved**; legacy RGB payloads are no longer accepted
+  * ``IMAGE_FORMAT_RAW_UINT8_BGR`` (19): Raw BGR data in C-order array format (required canonical format)
 
 HashType
 ~~~~~~~~
