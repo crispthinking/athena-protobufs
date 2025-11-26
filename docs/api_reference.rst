@@ -66,9 +66,9 @@ ClassifySingle
 
 **RPC Type**: Unary
 
-**Description**: Classifies a single image synchronously without deployment 
-context. Returns classification results immediately in a single request-response 
-cycle. Unlike the streaming Classify method, this operates independently of 
+**Description**: Classifies a single image synchronously without deployment
+context. Returns classification results immediately in a single request-response
+cycle. Unlike the streaming Classify method, this operates independently of
 deployments and does not require session management or deployment coordination.
 
 **Request**: ``ClassificationInput``
@@ -77,7 +77,7 @@ deployments and does not require session management or deployment coordination.
 **Use Cases**:
 
 * Low-throughput, low-latency classification scenarios
-* Simple one-off image classifications  
+* Simple one-off image classifications
 * Applications where immediate synchronous responses are preferred over streaming
 * Testing and debugging individual image classifications
 
@@ -348,12 +348,13 @@ Enumeration of supported image file formats.
      IMAGE_FORMAT_TIFF = 15;
      IMAGE_FORMAT_HDR = 16;
      IMAGE_FORMAT_PIC = 17;
-     IMAGE_FORMAT_RAW_UINT8 = 18;
+     IMAGE_FORMAT_RAW_UINT8_BRG = 18 [deprecated = true];
+     IMAGE_FORMAT_RAW_UINT8_BGR = 19;
    }
 
 **Raw Formats**:
-
-* ``IMAGE_FORMAT_RAW_UINT8`` (18): Raw RGB data in C-order array format
+  * ``IMAGE_FORMAT_RAW_UINT8_BRG`` (18) [deprecated]: Raw BRG data in C-order array format (use ``IMAGE_FORMAT_RAW_UINT8_BGR`` instead)
+  * ``IMAGE_FORMAT_RAW_UINT8_BGR`` (19): Raw BGR data in C-order array format
 
 HashType
 ~~~~~~~~
