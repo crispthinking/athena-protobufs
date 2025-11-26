@@ -171,10 +171,6 @@ enum RequestEncoding {
 // Enumeration of supported image file formats.
 // Specifies the image file format structure for proper parsing.
 enum ImageFormat {
-  // Slot previously used by IMAGE_FORMAT_RAW_UINT8 (RGB). Intentionally left
-  // reserved to disallow the legacy layout.
-  reserved 18;
-
   IMAGE_FORMAT_UNSPECIFIED = 0;
   IMAGE_FORMAT_GIF = 1;
   IMAGE_FORMAT_JPEG = 2; // Covers .jpeg, .jpg, .jpe extensions
@@ -193,7 +189,7 @@ enum ImageFormat {
   IMAGE_FORMAT_TIFF = 15; // Covers .tiff, .tif extensions
   IMAGE_FORMAT_HDR = 16;
   IMAGE_FORMAT_PIC = 17;
-  IMAGE_FORMAT_RAW_UINT8_BGR = 19; // Raw unsigned 8-bit image data (BGR, C order array)
+  IMAGE_FORMAT_RAW_UINT8_BGR = 18; // Raw unsigned 8-bit image data (BGR, C order array)
 }
 
 // Enumeration of hash types supported for image hashing.

@@ -349,14 +349,12 @@ Enumeration of supported image file formats.
      IMAGE_FORMAT_TIFF = 15;
      IMAGE_FORMAT_HDR = 16;
      IMAGE_FORMAT_PIC = 17;
-     IMAGE_FORMAT_RAW_UINT8 = 18;
-     IMAGE_FORMAT_RAW_UINT8_BGR = 19;
+     IMAGE_FORMAT_RAW_UINT8_BGR = 18;
    }
 
 **Raw Formats**:
 
-  * ``IMAGE_FORMAT_RAW_UINT8`` (18): **Reserved**; legacy RGB payloads are no longer accepted
-  * ``IMAGE_FORMAT_RAW_UINT8_BGR`` (19): Raw BGR data in C-order array format (required canonical format)
+  * ``IMAGE_FORMAT_RAW_UINT8_BGR`` (18): Raw BGR data in C-order array format
 
 HashType
 ~~~~~~~~
