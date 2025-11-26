@@ -113,6 +113,7 @@ Container message for batch image classification requests within a deployment.
 * ``inputs`` (repeated ClassificationInput): Array of images to classify in this batch. Allows efficient processing of multiple images per request.
 
 **Constraints**:
+
 - deployment_id must be non-empty
 - All correlation_ids within inputs must be unique within the deployment
 
