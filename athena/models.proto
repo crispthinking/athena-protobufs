@@ -190,7 +190,7 @@ enum ImageFormat {
   IMAGE_FORMAT_HDR = 16;
   IMAGE_FORMAT_PIC = 17;
   IMAGE_FORMAT_RAW_UINT8_BRG = 18 [deprecated = true]; // Deprecated; Raw unsigned 8-bit image data (BRG, C order array)
-  IMAGE_FORMAT_RAW_UINT8_BRG = 19; // Raw unsigned 8-bit image data (BGR, C order array)
+  IMAGE_FORMAT_RAW_UINT8_BGR = 19; // Raw unsigned 8-bit image data (BGR, C order array)
 }
 
 // Enumeration of hash types supported for image hashing.
