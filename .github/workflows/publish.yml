@@ -1,0 +1,40 @@
+name: Publish Resolver.Athena.Grpc Packages
+
+on:
+  release:
+    types:
+      - published
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  packages: write
+  checks: write
+  pull-requests: write
+
+jobs:
+  build:
+    uses: ./.github/workflows/ci.yml
+
+  publish:
+    runs-on: ubuntu-22.04
+    needs: build
+    steps:
+      - name: Download Package
+        uses: actions/download-artifact@v5
+        with:
+          name: artifacts
+          path: bin/artifacts/
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: 9.0.x
+
+      - name: Publish NuGet Packages to GitHub Packages
+        run: dotnet nuget push bin/artifacts/**/*.nupkg --api-key ${{ secrets.GITHUB_TOKEN }} --source https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json --skip-duplicate
+
+      - name: Publish NuGet package to NuGet.org
+        if: github.event_name == 'release'
+        run: |
+          dotnet nuget push bin/artifacts/**/*.nupkg --api-key "${{ secrets.NUGET_APIKEY }}" --source "https://api.nuget.org/v3/index.json" --skip-duplicate

@@ -194,3 +194,10 @@ Thumbs.db
 .Trashes
 ehthumbs.db
 Thumbs.db
+
+# .NET build outputs
+bin/
+obj/
+Artifacts/
+*.nupkg
+*.snupkg

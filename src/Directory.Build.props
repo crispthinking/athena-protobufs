@@ -1,0 +1,37 @@
+<Project>
+  <PropertyGroup>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <ProtoRoot>$(MSBuildThisFileDirectory)..</ProtoRoot>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <DebugType>portable</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+
+    <!-- Package Metadata -->
+    <!-- Automatically transform package IDs to avoid Resolver.* prefix conflict -->
+    <!-- Converts "Resolver.Athena.X" to "ResolverAthena.X" -->
+    <PackageId>$(MSBuildProjectName.Replace('Resolver.Athena', 'ResolverAthena'))</PackageId>
+    <Authors>Crisp Thinking Group Ltd</Authors>
+    <Company>Crisp Thinking Group Ltd</Company>
+    <Copyright>Copyright (c) 2025 Crisp Thinking Group Ltd</Copyright>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <RepositoryUrl>https://github.com/crispthinking/athena-protobufs</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageProjectUrl>https://github.com/crispthinking/athena-protobufs</PackageProjectUrl>
+    <PackageTags>athena;csam;detection;resolver;image-classification;grpc;protobuf</PackageTags>
+  </PropertyGroup>
+
+  <!-- Include README.md in all packages -->
+  <ItemGroup>
+    <None Include="$(MSBuildThisFileDirectory)../README.md" Pack="true" PackagePath="\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="GitVersion.MsBuild">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+</Project>

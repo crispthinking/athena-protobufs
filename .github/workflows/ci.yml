@@ -1,0 +1,59 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+  workflow_call:
+
+permissions:
+  contents: write
+  pull-requests: write
+  checks: write
+  packages: read
+
+env:
+  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: 1
+  DOTNET_CLI_TELEMETRY_OPTOUT: 1
+  DOTNET_NOLOGO: 1
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-22.04, windows-latest, macos-latest]
+
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: |
+            8.0.x
+            9.0.x
+
+      - name: Restore dependencies
+        run: dotnet restore Resolver.Athena.Grpc.slnx
+
+      - name: Build
+        run: dotnet build Resolver.Athena.Grpc.slnx --configuration Release --no-restore
+
+      - name: Pack
+        if: ${{ matrix.os == 'ubuntu-22.04' }}
+        run: dotnet pack Resolver.Athena.Grpc.slnx --configuration Release --no-build --output Artifacts
+
+      - name: Upload NuGet packages
+        if: ${{ matrix.os == 'ubuntu-22.04' }}
+        uses: actions/upload-artifact@v5
+        with:
+          name: artifacts
+          path: Artifacts/*.nupkg

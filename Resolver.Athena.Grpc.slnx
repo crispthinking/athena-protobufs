@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="src/Resolver.Athena.Grpc.Client/Resolver.Athena.Grpc.Client.csproj" />
+  <Project Path="src/Resolver.Athena.Grpc.Models/Resolver.Athena.Grpc.Models.csproj" />
+</Solution>
