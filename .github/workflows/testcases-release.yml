@@ -28,9 +28,7 @@ jobs:
           for dir in testcases/*/; do
             dirname=$(basename "$dir")
             echo "Creating archive for $dirname..."
-            cd testcases
-            zip -r "../dist/athena-testcases-${dirname}.zip" "$dirname"
-            cd ..
+            (cd testcases && zip -r "../dist/athena-testcases-${dirname}.zip" "$dirname")
           done
           
           # Create a combined archive with all testcases
