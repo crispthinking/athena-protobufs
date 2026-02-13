@@ -17,9 +17,6 @@ jobs:
         with:
           lfs: true
 
-      - name: Pull LFS files
-        run: git lfs pull
-
       - name: Create archives
         run: |
           mkdir -p dist
