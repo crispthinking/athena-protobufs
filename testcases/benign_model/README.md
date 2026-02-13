@@ -4,9 +4,8 @@ Test images for validating classification with benign/development models.
 
 ## Source
 
-Images are believed to be sourced from **Flickr** under permissive licenses
-(Creative Commons or similar). These are safe, benign images of nature scenes
-and wildlife.
+Images are sourced from **Pexels** under the [Pexels License](https://www.pexels.com/license/)
+(free to use for any purpose, no attribution required).
 
 ## Contents
 
@@ -29,8 +28,3 @@ These test cases are designed for:
 
 Expected outputs are calibrated for a benign classification model that
 classifies all images as safe/distraction content.
-
-## License Note
-
-While images are believed to be under permissive licenses, verify licensing
-if using outside of internal testing purposes.
