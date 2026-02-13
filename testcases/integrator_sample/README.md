@@ -2,6 +2,11 @@
 
 A curated subset of test images for quick integration testing.
 
+> **Important**: All images in this test set are **completely safe and benign**.
+> There is no CSAM, adult content, or any violative material. Any non-zero
+> classification weights represent known edge cases and false positives that have
+> been carefully curated for testing purposes.
+
 ## Source
 
 Images are selected from `live_model/` which contains frames from the

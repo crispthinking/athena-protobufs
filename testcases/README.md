@@ -4,6 +4,11 @@ This directory contains shared end-to-end test cases for validating Athena clien
 implementations across different programming languages. Each client library should
 consume these test cases to ensure consistent behavior.
 
+> **Important**: All test images in this repository are **completely safe and benign**.
+> There is no CSAM, adult content, or any violative material. Any non-zero
+> classification weights in the expected outputs represent known edge cases and
+> false positives that have been carefully curated for integrator testing purposes.
+
 ## Directory Structure
 
 ```

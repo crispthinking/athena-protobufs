@@ -2,6 +2,12 @@
 
 Test images for validating classification against the production Athena model.
 
+> **Important**: All images in this test set are **completely safe and benign**.
+> There is no CSAM, adult content, or any violative material. These are frames from
+> a public action recognition dataset (people doing everyday activities). Any non-zero
+> classification weights represent known edge cases and false positives that have been
+> carefully curated for testing purposes.
+
 ## Source
 
 Images are extracted frames from the **UCF101 Action Recognition Dataset**:
