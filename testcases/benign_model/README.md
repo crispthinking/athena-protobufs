@@ -27,4 +27,5 @@ These test cases are designed for:
 - Testing image processing and client behavior with known-safe content
 
 Expected outputs are calibrated for a benign classification model that
-classifies all images as safe/distraction content.
+classifies all images into benign categories (for example, `UnknownCSAM-*` scenery types)
+and does not produce KnownCSAM or other high-risk labels.
