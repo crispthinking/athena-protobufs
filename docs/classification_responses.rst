@@ -72,6 +72,7 @@ Benign Classifier
 **Important**: The benign classifier is intended **for integration testing only**. The classification values and labels are largely meaningless and should not be used for production content analysis.
 
 **Labels**:
+
 - Lakeside
 - Mountains  
 - Trees
@@ -80,6 +81,7 @@ Benign Classifier
 - Goose
 
 **Characteristics**:
+
 - Individual labels typically sum to approximately 1.0
 - Includes Entropy and PCSAM special labels
 - All labels are prefixed with "UnknownCSAM-", just as the live classifier labels would be.
@@ -90,6 +92,7 @@ Live Classifier
 **Purpose**: Production CSAM detection
 
 **Labels**:
+
 - classA
 - classB  
 - classC
@@ -98,6 +101,7 @@ Live Classifier
 - distraction
 
 **Characteristics**:
+
 - Individual labels typically sum to approximately 1.0
 - Includes Entropy and PCSAM special labels
 - All labels are prefixed with "UnknownCSAM-"
