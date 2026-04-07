@@ -189,7 +189,8 @@ enum ImageFormat {
   IMAGE_FORMAT_TIFF = 15; // Covers .tiff, .tif extensions
   IMAGE_FORMAT_HDR = 16;
   IMAGE_FORMAT_PIC = 17;
-  IMAGE_FORMAT_RAW_UINT8 = 18; // Raw unsigned 8-bit image data (RGB, C order array)
+  reserved 18; // Previously IMAGE_FORMAT_RAW_UINT8_BRG (deprecated, channel order)
+  IMAGE_FORMAT_RAW_UINT8_BGR = 19; // Raw unsigned 8-bit image data (BGR, C order array)
 }
 
 // Enumeration of hash types supported for image hashing.
