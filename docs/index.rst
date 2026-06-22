@@ -53,6 +53,27 @@ The Athena API consists of two main RPC methods:
 1. **Classify**: Stream images for classification with deployment-based session management
 2. **ListDeployments**: Get information about active deployments and their backlogs
 
+Connecting
+~~~~~~~~~~
+
+The Athena gRPC service endpoint is:
+
+.. code-block:: text
+
+   api.athena-risk-intelligence.com:443
+
+* **Transport**: TLS is required for all connections.
+* **Authentication**: Clients must supply valid credentials (API key or mTLS certificate) when establishing the channel.
+
+Example channel setup (Python)::
+
+   import grpc
+
+   ssl_credentials = grpc.ssl_channel_credentials()
+   call_credentials = grpc.access_token_call_credentials("<your-api-key>")
+   credentials = grpc.composite_channel_credentials(ssl_credentials, call_credentials)
+   channel = grpc.secure_channel("api.athena-risk-intelligence.com:443", credentials)
+
 Deployments
 ~~~~~~~~~~~
 

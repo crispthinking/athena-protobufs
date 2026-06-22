@@ -40,4 +40,10 @@ Images are extracted frames from the **UCF101 Action Recognition Dataset**:
 These test cases are designed for validating production model behavior. Expected
 outputs reflect actual production model classifications at the time of capture.
 
+When running these test cases against the live service, connect to:
+
+```
+api.athena-risk-intelligence.com:443
+```
+
 Use `integrator_sample/` for a smaller, safer subset of these images.

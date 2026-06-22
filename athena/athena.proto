@@ -16,6 +16,9 @@ option swift_prefix = "RAT";
 // The classifier service definition.
 // Provides image classification capabilities with session-based streaming
 // and client management functionality.
+//
+// Endpoint: api.athena-risk-intelligence.com:443
+// Transport: TLS required
 service ClassifierService {
   // Classify images in a deployment-based streaming context
   // Multiple affiliates can join the same deployment to share responses
