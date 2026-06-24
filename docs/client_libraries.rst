@@ -9,6 +9,9 @@ application.
 
 If your language is not listed below you can still use the service directly via
 the :doc:`proto/index` definitions with any gRPC-compatible toolchain.
+Interested in a managed library for another language? Reach out to our team via
+the `Athena product page <https://www.resolver.com/trust-safety-intelligence/csam-detection>`_
+to express interest.
 
 Python
 ------
