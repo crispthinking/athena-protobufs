@@ -12,6 +12,7 @@ Sexual Abuse Material) detection capabilities through gRPC services.
    api_reference
    classification_responses
    best_practices
+   client_libraries
    proto/index
 
 Service Overview
@@ -133,8 +134,12 @@ responses with their original requests.
 Getting Started
 ---------------
 
-Check the `protocol buffer documentation <https://protobuf.dev/getting-started/>`_ for information on how to generate code
-for your language of choice.
+The quickest way to get started is to use one of the :doc:`client_libraries`
+which handle image pre-processing and streaming for you.
+
+If you prefer to work directly with the gRPC API, check the
+`protocol buffer documentation <https://protobuf.dev/getting-started/>`_ for
+information on how to generate code for your language of choice.
 Review the :doc:`api_reference` for detailed message and service definitions
 
 Indices and tables
