@@ -42,4 +42,10 @@ Ideal for:
 - Demonstrating client functionality to integrators
 - CI pipeline validation (fast, ~10 images)
 
+When running these test cases against the live service, connect to:
+
+```
+api.athena-risk-intelligence.com:443
+```
+
 For comprehensive testing, use `live_model/` (50 images).

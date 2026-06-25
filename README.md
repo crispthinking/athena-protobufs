@@ -36,6 +36,38 @@ This separation allows:
 - **Error Handling**: Comprehensive error codes and detailed error messages
 - **Monitoring**: Active deployment tracking and backlog monitoring
 
+## Connecting to the API
+
+The Athena gRPC service is available at:
+
+```
+api.athena-risk-intelligence.com:443
+```
+
+TLS is required. All clients must supply valid credentials (API key or mTLS certificate) when opening the channel.
+
+**Python example** (using `grpcio`):
+
+```python
+import grpc
+
+credentials = grpc.ssl_channel_credentials()
+channel = grpc.secure_channel("api.athena-risk-intelligence.com:443", credentials)
+```
+
+For authenticated channels that require an API key, compose the credentials:
+
+```python
+import grpc
+
+ssl_credentials = grpc.ssl_channel_credentials()
+call_credentials = grpc.access_token_call_credentials("<your-api-key>")
+credentials = grpc.composite_channel_credentials(ssl_credentials, call_credentials)
+channel = grpc.secure_channel("api.athena-risk-intelligence.com:443", credentials)
+```
+
+See the [API Reference](docs/api_reference.rst) for full service and message definitions.
+
 ## Usage
 
 ### Generating Code

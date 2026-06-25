@@ -5,6 +5,19 @@ This section provides detailed documentation for all Protocol Buffer messages,
 services, and enums defined in the Athena API, including client library behavior
 and data handling policies.
 
+Connection Details
+------------------
+
+**Endpoint**: ``api.athena-risk-intelligence.com:443``
+
+**Transport security**: TLS is required for all connections.
+
+**Authentication**: All clients must supply valid credentials when opening the
+channel. Depending on your account type this will be either an API key (passed
+as a bearer token via call credentials) or a mutual-TLS (mTLS) client
+certificate. Contact your account administrator for the credentials applicable
+to your integration.
+
 Services
 --------
 
